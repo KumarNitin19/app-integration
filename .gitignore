@@ -1,2 +1,4 @@
 /node_modules
 .env
+/frontend/react-app-integration/node_modules
+/frontend/next-app-integration/node_modules
