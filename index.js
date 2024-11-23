@@ -8,12 +8,22 @@ app.get("/", (req, res) => {
 });
 
 app.use(
-  "/react",
+  "/",
   createProxyMiddleware({
     target: "http://localhost:5173",
     changeOrigin: true,
-    pathRewrite: {
-      "^/react": "",
+    ws: true,
+    router: {
+      "/react": "http://localhost:5173/",
+    },
+    pathRewrite: function (path, req) {
+      if (path.startsWith("/react/")) {
+        return path.replace("/react", "");
+      }
+      return path;
+    },
+    onProxyReq: (proxyReq, req, res) => {
+      console.log("React Proxy Request:", req.method, req.url);
     },
     onError: (err, req, res) => {
       console.error("React Proxy Error:", err);
