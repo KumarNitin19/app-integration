@@ -22,6 +22,21 @@ app.use(
   })
 );
 
+app.use(
+  "/next",
+  createProxyMiddleware({
+    target: "http://localhost:3001",
+    changeOrigin: true,
+    pathRewrite: {
+      "^/next": "",
+    },
+    onError: (err, req, res) => {
+      console.error("Next Proxy Error:", err);
+      res.status(500).send("Next Proxy Error");
+    },
+  })
+);
+
 const port = 3000;
 
 app.listen(port, () => {
