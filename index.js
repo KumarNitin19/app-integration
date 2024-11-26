@@ -1,6 +1,7 @@
 const express = require("express");
 // const { createProxyMiddleware } = require("http-proxy-middleware");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 
