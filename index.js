@@ -1,10 +1,26 @@
 const express = require("express");
-const { createProxyMiddleware } = require("http-proxy-middleware");
+// const { createProxyMiddleware } = require("http-proxy-middleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
+// Middleware to parse cookies
+app.use(cookieParser());
+
 app.get("/", (req, res) => {
   res.json({ message: "Express app" });
+});
+
+app.get("/set-cookie", (req, res) => {
+  // Set a cookie named 'user' with value 'john_doe'
+  res.cookie("id_token", "nsddkjnkkjfndkjnnvkjdfnvkjdfknn", {
+    httpOnly: true, // Makes the cookie accessible only via HTTP(S), not JavaScript
+    secure: process.env.NODE_ENV === "production", // Use secure cookies in production (requires HTTPS)
+    maxAge: 3600000, // 1 hour expiration time
+    sameSite: "Strict", // Cookie will only be sent in a first-party context (no cross-site)
+  });
+
+  res.send("Cookie has been set!");
 });
 
 const port = 3000;
