@@ -4,6 +4,14 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
+// Configure CORS to allow requests from specific origins
+const corsOptions = {
+  origin: "http://localhost:5173", // Allow requests from this origin (frontend)
+  credentials: true, // Allow cookies to be sent with requests
+};
+
+app.use(cors(corsOptions));
+
 // Middleware to parse cookies
 app.use(cookieParser());
 
