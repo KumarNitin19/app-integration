@@ -27,9 +27,9 @@ function App() {
   };
 
   // Fetch cookie or data from the API on component mount
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
